@@ -1,0 +1,22 @@
+{
+  "name": "template-node-ts",
+  "version": "1.0.0",
+  "description": "Minimal TypeScript/Node.js template",
+  "license": "MIT",
+  "author": "Perry Angelora",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsx watch src/index.ts",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.0",
+    "@vitest/coverage-v8": "^4.0.15",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.15"
+  }
+}
