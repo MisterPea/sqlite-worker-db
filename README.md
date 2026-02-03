@@ -1,17 +1,12 @@
-# Minimal, TypeScript/Node.js with Vitest 🍦
+# Worker + SQLite 🏪
 
-To use: 
-### Via clone:
-1. clone the repository
-2. Remove .git for this template repo (below)
+### Setup
+To use, you must provide:
+1. The path to your schema file
+2. The path and filename for your database. (If database file is not provided, one will be created)
+
+Note: File paths are relative to the root of your project
 ```
-cd template-node-ts && rm -rf .git
+import { DB } from './db.js'
+const db = new DB('./schemas/schema.sql','./db/test_db.db')
 ```
-
-### Via 'Use this template':
-1. Click the 'Use this template' then `pull` it local
-
-
-### On your machine:
-1. `$ npm install`
-2. Make cool stuff!
