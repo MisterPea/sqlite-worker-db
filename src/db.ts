@@ -1,4 +1,6 @@
 import { Worker } from 'worker_threads';
+import path, { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { v4 as uuidv4 } from 'uuid';
 import {
   DbConfig,
@@ -15,6 +17,9 @@ import {
   ShutdownRtn
 } from './types.js';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 interface Pending {
   resolve: (val: any) => void;
   reject: (err: any) => void;
@@ -26,10 +31,10 @@ interface Pending {
  * So we have to bootstrap tsx inside the worker
  * @returns {Worker} 
  */
-function _spawnWorker(): Worker {
+function _spawnWorker(workerPath: string): Worker {
   return new Worker(`import('tsx/esm/api').then(({ register }) => { 
     register(); 
-    import('./src/worker.ts') 
+    import('${workerPath}') 
     })`,
     { eval: true });
 }
@@ -43,7 +48,7 @@ export class DB {
   constructor(public config: DbConfig) {
     this.queue = [];
     this.setupComplete = false;
-    this.worker = _spawnWorker();
+    this.worker = _spawnWorker(path.join(__dirname, 'worker.ts'));
     this.config = config;
     this.init();
 
@@ -65,9 +70,13 @@ export class DB {
    */
   private async init() {
     if (!this.setupComplete) {
-      const setupRtn = await this.setup();
-      this.setupComplete = setupRtn.success;
-      this.flushQueue();
+      try {
+        await this.sendToWorker('setup', '', { config: this.config });
+        this.setupComplete = true;
+        this.flushQueue();
+      } catch (err) {
+        this.queue.length = 0;
+      }
     }
   }
 
@@ -123,18 +132,13 @@ export class DB {
     return this.sendToWorker('shutdown');
   }
 
-  /** Private method to initiate database on worker */
-  private async setup() {
-    return this.sendToWorker('setup', '', { config: this.config });
-  }
-
   /**
    * Private method to flush the queue when setup is complete
    */
   private async flushQueue() {
     while (this.queue.length) {
       // shift() for FIFO
-      const job: QueuedJob = this.queue.shift();
+      const job: QueuedJob | undefined = this.queue.shift();
       if (!job) break;
 
       const { id, type, sql, params, resolve, reject } = job;

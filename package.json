@@ -1,9 +1,20 @@
 {
-  "name": "template-node-ts",
-  "version": "1.0.0",
-  "description": "Minimal TypeScript/Node.js template",
+  "name": "@misterpea/sqlite-worker-db",
+  "version": "0.1.0",
+  "description": "SQLite database interface using Node.js worker threads",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MisterPea/sqlite-worker-db"
+  },
+  "keywords": [
+    "sqlite",
+    "worker",
+    "database",
+    "better-sqlite3",
+    "typescript"
+  ],
   "license": "MIT",
-  "author": "Perry Angelora",
+  "author": "Perry Angelora <perry.angelora@gmail.com>",
   "type": "module",
   "main": "index.js",
   "scripts": {

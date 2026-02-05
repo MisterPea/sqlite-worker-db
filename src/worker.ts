@@ -35,8 +35,6 @@ parentPort?.on('message', async (message) => {
 
   if (!db) throw new Error('Database not available');
 
-
-
   // Shutdown db
   if (type === 'shutdown') {
     db.close();              // closes better-sqlite3
