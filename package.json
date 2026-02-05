@@ -16,7 +16,17 @@
   "license": "MIT",
   "author": "Perry Angelora <perry.angelora@gmail.com>",
   "type": "module",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "start": "tsx watch src/index.ts",
     "test": "vitest",

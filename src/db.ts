@@ -31,10 +31,15 @@ interface Pending {
  * So we have to bootstrap tsx inside the worker
  * @returns {Worker} 
  */
-function _spawnWorker(workerPath: string): Worker {
+function _spawnWorker(tsFilename: string, jsFilename: string): Worker {
+  const parentFolder = path.basename(__dirname);
+  const tsWorkPath = path.join(__dirname, tsFilename);
+  const jsWorkPath = path.join(__dirname, jsFilename);
+
+  if (parentFolder === 'dist') return new Worker(jsWorkPath);
   return new Worker(`import('tsx/esm/api').then(({ register }) => { 
     register(); 
-    import('${workerPath}') 
+    import('${tsWorkPath}') 
     })`,
     { eval: true });
 }
@@ -48,7 +53,7 @@ export class DB {
   constructor(public config: DbConfig) {
     this.queue = [];
     this.setupComplete = false;
-    this.worker = _spawnWorker(path.join(__dirname, 'worker.ts'));
+    this.worker = _spawnWorker('worker.ts', 'worker.js');
     this.config = config;
     this.init();
 
