@@ -1,4 +1,4 @@
-export { DB } from './db.js';
+export { DB, DbMethods } from './db.js';
 
 export type { DbConfig } from './types.js';
 

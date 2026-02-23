@@ -1,6 +1,6 @@
 {
   "name": "@misterpea/sqlite-worker-db",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "SQLite database interface using Node.js worker threads",
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
   "scripts": {
     "start": "tsx watch src/index.ts",
     "test": "vitest",
+    "pre-publish": "vitest run && npm run build",
     "coverage": "vitest run --coverage",
     "build": "tsc"
   },

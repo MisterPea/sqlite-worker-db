@@ -12,7 +12,7 @@ You must provide:
 1. **Schema path** - absolute path to your `.sql` schema file
 2. **Database path** - absolute path where the database file should live (created if it doesn't exist)
 ```typescript
-import { DB, DbConfig } from '@misterpea/sqlite-worker-db';
+import { DB, DbConfig, DbMethods} from '@misterpea/sqlite-worker-db';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -24,7 +24,7 @@ const config: DbConfig = {
   dbPath: path.join(__dirname, './sqlite/myDb.db')
 };
 
-const db = new DB(config);
+const db: DbMethods = new DB(config);
 ```
 
 ## API

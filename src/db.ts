@@ -44,7 +44,15 @@ function _spawnWorker(tsFilename: string, jsFilename: string): Worker {
     { eval: true });
 }
 
-export class DB {
+export interface DbMethods {
+  getData(...args: GetData): GetDataRrn;
+  getAllData(...args: GetAllData): GetAllDataRtn;
+  insertData(...args: InsertData): InsertDataRtn;
+  setData(...args: SetData): SetDataRtn;
+  shutdown(): ShutdownRtn;
+}
+
+export class DB implements DbMethods {
   worker: Worker;
   private pending = new Map<string, Pending>();
   private setupComplete: boolean;
