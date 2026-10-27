@@ -1,6 +1,6 @@
 {
   "name": "@misterpea/sqlite-worker-db",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "SQLite database interface using Node.js worker threads",
   "repository": {
     "type": "git",
@@ -36,11 +36,11 @@
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
-    "@types/node": "^25.0.0",
-    "@vitest/coverage-v8": "^4.1.11",
-    "tsx": "^4.21.0",
+    "@types/node": "^25.9.9",
+    "@vitest/coverage-v8": "^4.1.12",
+    "tsx": "^4.23.15",
     "typescript": "^5.9.3",
-    "vitest": "^4.1.11"
+    "vitest": "^4.1.12"
   },
   "dependencies": {
     "better-sqlite3": "^12.6.2",
